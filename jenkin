@@ -9,8 +9,11 @@ pipeline {
      
      stage('Scan') {
      	steps {
-     	   sh 'trivy nilotpalgure1998/jenkin_aqua:latest'
-     	}
+	   script {
+               def trivyScan = sh(script: 'trivy -q -f json -o /var/lib/jenkins/reports/trivy-report.json nilotpalgure1998/jenkin_aqua:latest', returnStdout: true)
+               writeFile file: 'trivyScan.md', text: trivyScan 
+	   }
+        }
      }
   }
 }
