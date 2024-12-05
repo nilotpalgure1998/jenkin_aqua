@@ -1,0 +1,16 @@
+pipeline {
+  agent any 
+  stages {
+     stage('Build') {
+       steps { 
+          sh 'docker build -t nilotpalgure1998/jenkin_aqua:latest .'
+       }
+     }
+     
+     stage('Scan') {
+     	steps {
+     	   sh 'trivy nilotpalgure1998/jenkin_aqua:latest'
+     	}
+     }
+  }
+}
