@@ -3,14 +3,14 @@ pipeline {
   stages {
      stage('Build') {
        steps { 
-          sh 'docker build -t local/ctf01:latest .'
+          sh 'docker build -t bkimminich/juice-shop:latest .'
        }
      }
      
      stage('Scan') {
      	steps {
 	   script {
-               def trivyScan = sh(script: 'trivy -q -f json -o /var/lib/jenkins/reports/trivy-report.json local/ctf01:latest', returnStdout: true)
+               def trivyScan = sh(script: 'trivy -q -f json -o /var/lib/jenkins/reports/trivy-report.json bkimminich/juice-shop:latest', returnStdout: true)
                writeFile file: 'trivyScan.md', text: trivyScan 
 	   }
         }
